@@ -102,6 +102,303 @@ export const MarketResultDashboard: React.FC<MarketResultDashboardProps> = ({
         </div>
       </div>
 
+      {/* AI Query-Understanding & Research Strategy Card */}
+      {result.interpretation && (
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-2xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 gap-2">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-900">
+                  AI Query-Understanding & Search Strategy
+                </span>
+                <span className="text-[11px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-1.5 py-0.5 rounded">
+                  Validated Schema
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Structured query interpretation feeding the downstream web research layer.
+              </p>
+            </div>
+            <div className="text-xs text-slate-500 flex items-center gap-1.5">
+              <span>Interpretation Confidence:</span>
+              <span className="font-semibold text-slate-900 font-mono">
+                {Math.round(result.interpretation.confidence * 100)}%
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+            <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <span className="text-slate-400 font-medium block">Interpreted Name</span>
+              <span className="font-semibold text-slate-900 mt-1 block">
+                {result.interpretation.name}
+              </span>
+            </div>
+
+            <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <span className="text-slate-400 font-medium block">Category</span>
+              <span className="font-semibold text-slate-900 mt-1 block">
+                {result.interpretation.category}
+              </span>
+            </div>
+
+            <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <span className="text-slate-400 font-medium block">Brand & Model</span>
+              <span className="font-semibold text-slate-900 mt-1 block">
+                {result.interpretation.brand
+                  ? `${result.interpretation.brand}${result.interpretation.model ? ` (${result.interpretation.model})` : ''}`
+                  : 'Unspecified'}
+              </span>
+            </div>
+
+            <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <span className="text-slate-400 font-medium block">Primary Material</span>
+              <span className="font-semibold text-slate-900 mt-1 block capitalize">
+                {result.interpretation.material || 'Generic / Composite'}
+              </span>
+            </div>
+          </div>
+
+          {/* Extracted Specifications & Generated Search Queries */}
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            {/* Extracted Specs from query */}
+            <div className="p-4 bg-slate-50/70 rounded-lg border border-slate-100">
+              <span className="font-semibold text-slate-800 block mb-2">
+                Explicit Specifications Extracted:
+              </span>
+              {result.interpretation.specifications.length > 0 ? (
+                <div className="flex flex-wrap gap-1.5">
+                  {result.interpretation.specifications.map((spec, i) => (
+                    <span
+                      key={i}
+                      className="px-2 py-0.5 bg-white border border-slate-200 text-slate-800 font-medium rounded text-[11px]"
+                    >
+                      {spec}
+                    </span>
+                  ))}
+                </div>
+              ) : (
+                <span className="text-slate-400 italic">No explicit dimensions or standards specified.</span>
+              )}
+            </div>
+
+            {/* Generated Search Queries */}
+            <div className="p-4 bg-slate-50/70 rounded-lg border border-slate-100">
+              <span className="font-semibold text-slate-800 block mb-2">
+                Generated Research Queries:
+              </span>
+              <ul className="space-y-1 text-slate-700 font-mono text-[11px]">
+                {result.interpretation.search_queries.map((sq, i) => (
+                  <li key={i} className="flex items-center gap-1.5 truncate">
+                    <span className="text-indigo-600 font-bold shrink-0">›</span>
+                    <span className="truncate">{sq}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Uncertainties if any */}
+          {result.interpretation.uncertainties.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-slate-100 flex items-start gap-2 text-xs text-amber-800">
+              <HelpCircle className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-medium mr-1.5">Acknowledged Ambiguities:</span>
+                <span>{result.interpretation.uncertainties.join(' · ')}</span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Normalized Web Research Evidence Layer */}
+      {result.researchRecords && result.researchRecords.length > 0 && (
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-2xs">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-900">
+                  Normalized Web Research Records ({result.researchRecords.length})
+                </span>
+                <span className="text-[11px] font-medium text-indigo-700 bg-indigo-50 border border-indigo-200/80 px-1.5 py-0.5 rounded">
+                  Untrusted Web Isolation Active
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Structured seller listings and distributor pages extracted by the research layer.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-4 divide-y divide-slate-100">
+            {result.researchRecords.map((rec, i) => (
+              <div key={i} className="py-3.5 first:pt-1 last:pb-1">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 text-xs text-slate-500 mb-1">
+                      <span className="font-medium text-slate-900">{rec.source}</span>
+                      {rec.seller && (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <span>Seller: {rec.seller}</span>
+                        </>
+                      )}
+                      {rec.brand && (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <span>Brand: {rec.brand}</span>
+                        </>
+                      )}
+                      {rec.availability && (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <span className="text-emerald-700">{rec.availability}</span>
+                        </>
+                      )}
+                    </div>
+
+                    <h4 className="text-sm font-semibold text-slate-900 leading-snug">
+                      {rec.title}
+                    </h4>
+
+                    {rec.specifications.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {rec.specifications.map((s, si) => (
+                          <span
+                            key={si}
+                            className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200/60"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="sm:text-right shrink-0 mt-2 sm:mt-0 flex sm:flex-col items-baseline sm:items-end justify-between sm:justify-start gap-2">
+                    <div>
+                      {rec.price !== null ? (
+                        <span className="text-base font-bold font-mono text-slate-900 tabular-nums">
+                          {rec.currency === 'USD' ? '$' : rec.currency === 'NGN' ? '₦' : `${rec.currency} `}
+                          {rec.price.toFixed(2)}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-slate-400 italic">Price unlisted</span>
+                      )}
+                    </div>
+
+                    <a
+                      href={rec.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 font-medium hover:underline"
+                    >
+                      <span>Source Link</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Pricing Intelligence Engine Audit & Observation Breakdown */}
+      {result.pricingIntelligence && (
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-2xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 gap-2">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-900">
+                  Pricing Intelligence Engine Audit
+                </span>
+                <span className="text-[11px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-1.5 py-0.5 rounded">
+                  Empirical Quotes Only
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                {result.pricingIntelligence.methodology}
+              </p>
+            </div>
+            <div className="text-xs text-slate-500">
+              Target Currency: <strong className="font-mono text-slate-900">{result.pricingIntelligence.currency}</strong>
+            </div>
+          </div>
+
+          {/* Observations Table */}
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-slate-200 text-slate-400 font-medium">
+                  <th className="py-2.5 pr-4">Merchant / Source</th>
+                  <th className="py-2.5 px-4">Original Source Quote</th>
+                  <th className="py-2.5 px-4">Normalized Benchmark Quote</th>
+                  <th className="py-2.5 px-4">Match Category</th>
+                  <th className="py-2.5 pl-4 text-right">Verification</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {result.pricingIntelligence.priceObservations.map((obs, idx) => (
+                  <tr key={idx} className={obs.isOutlier ? 'bg-amber-50/40 text-slate-500' : 'hover:bg-slate-50/80'}>
+                    <td className="py-3 pr-4 font-medium text-slate-900">
+                      <div>{obs.source}</div>
+                      <div className="text-[11px] text-slate-400 font-normal truncate max-w-xs">{obs.productTitle}</div>
+                    </td>
+                    <td className="py-3 px-4 font-mono font-medium text-slate-800 tabular-nums">
+                      {obs.originalCurrency === 'USD' ? '$' : obs.originalCurrency === 'NGN' ? '₦' : `${obs.originalCurrency} `}
+                      {obs.originalPrice.toLocaleString()}
+                    </td>
+                    <td className="py-3 px-4 font-mono font-semibold text-slate-900 tabular-nums">
+                      {obs.normalizedCurrency === 'USD' ? '$' : obs.normalizedCurrency === 'NGN' ? '₦' : `${obs.normalizedCurrency} `}
+                      {obs.normalizedPrice.toLocaleString()}
+                    </td>
+                    <td className="py-3 px-4">
+                      {obs.isOutlier ? (
+                        <span className="text-[11px] font-medium text-amber-700 bg-amber-100/80 px-2 py-0.5 rounded">
+                          Outlier Excluded
+                        </span>
+                      ) : obs.isExactMatch ? (
+                        <span className="text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                          Exact Match
+                        </span>
+                      ) : (
+                        <span className="text-[11px] font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded">
+                          Related Variant
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-3 pl-4 text-right">
+                      <a
+                        href={obs.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 font-medium hover:underline"
+                      >
+                        <span>Source</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Pricing Engine Limitations & Footnotes */}
+          {result.pricingIntelligence.limitations.length > 0 && (
+            <div className="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600">
+              <span className="font-semibold text-slate-800 block mb-1">Pricing Integrity & Limitation Notes:</span>
+              <ul className="space-y-1 list-disc list-inside text-slate-600">
+                {result.pricingIntelligence.limitations.map((lim, i) => (
+                  <li key={i}>{lim}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Pricing Analysis Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Benchmark Card */}

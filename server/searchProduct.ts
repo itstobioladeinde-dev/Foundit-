@@ -1,6 +1,9 @@
 import { MarketResearchResult } from '../src/types/market';
 import { MarketSearchProvider } from './providers/types';
 import { MockSearchProvider } from './providers/mockProvider';
+import { understandProductQuery } from './services/queryUnderstandingService.ts';
+import { researchProduct } from './research/researchProduct.ts';
+import { estimateMarketPrice } from './pricing/pricingEngine.ts';
 
 export class SearchValidationError extends Error {
   statusCode: number;
@@ -60,9 +63,63 @@ export async function searchProduct(rawQuery: unknown): Promise<MarketResearchRe
     throw new SearchValidationError('Search query contained only invalid control characters.', 400);
   }
 
-  // 6. Execute search via provider abstraction
+  // 6. Execute AI Query Understanding Layer
+  let interpretation;
   try {
-    return await activeProvider.search(sanitized);
+    interpretation = await understandProductQuery(sanitized);
+  } catch (err: unknown) {
+    console.warn('[MarketProbe] Query understanding notice:', err);
+  }
+
+  // 7. Execute Product Web Research Layer
+  let researchResultSet;
+  if (interpretation) {
+    try {
+      researchResultSet = await researchProduct(interpretation);
+    } catch (err: unknown) {
+      console.warn('[MarketProbe] Web research notice:', err);
+    }
+  }
+
+  // 8. Execute Pricing Intelligence Layer
+  let pricingIntelligence;
+  if (interpretation && researchResultSet?.records) {
+    try {
+      pricingIntelligence = estimateMarketPrice(researchResultSet.records, interpretation);
+    } catch (err: unknown) {
+      console.warn('[MarketProbe] Pricing intelligence notice:', err);
+    }
+  }
+
+  // 9. Execute search via provider abstraction
+  try {
+    const searchResult = await activeProvider.search(sanitized);
+    if (interpretation) {
+      searchResult.interpretation = interpretation;
+    }
+    if (researchResultSet?.records && researchResultSet.records.length > 0) {
+      searchResult.researchRecords = researchResultSet.records;
+    }
+    if (pricingIntelligence) {
+      searchResult.pricingIntelligence = pricingIntelligence;
+      if (pricingIntelligence.estimatedPrice !== null) {
+        searchResult.priceEstimate.benchmarkPrice = pricingIntelligence.estimatedPrice;
+        searchResult.priceEstimate.currency = pricingIntelligence.currency;
+        const sym = pricingIntelligence.currency === 'USD' ? '$' : pricingIntelligence.currency === 'NGN' ? '₦' : `${pricingIntelligence.currency} `;
+        searchResult.priceEstimate.formattedBenchmark = `${sym}${pricingIntelligence.estimatedPrice.toLocaleString()}`;
+        if (pricingIntelligence.minPrice !== null && pricingIntelligence.maxPrice !== null) {
+          searchResult.priceEstimate.rangeMin = pricingIntelligence.minPrice;
+          searchResult.priceEstimate.rangeMax = pricingIntelligence.maxPrice;
+          searchResult.priceEstimate.formattedRange = `${sym}${pricingIntelligence.minPrice.toLocaleString()} – ${sym}${pricingIntelligence.maxPrice.toLocaleString()}`;
+        }
+        searchResult.priceEstimate.confidence = pricingIntelligence.confidence;
+        searchResult.priceEstimate.confidenceReason = pricingIntelligence.methodology;
+        if (pricingIntelligence.limitations.length > 0) {
+          searchResult.uncertaintyNotes = [...searchResult.uncertaintyNotes, ...pricingIntelligence.limitations];
+        }
+      }
+    }
+    return searchResult;
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Provider search failed.';
     throw new SearchValidationError(`Market search service error: ${message}`, 500);

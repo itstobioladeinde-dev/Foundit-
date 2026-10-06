@@ -1,3 +1,7 @@
+import { ProductQueryInterpretation } from './queryUnderstanding';
+import { ProductResearchRecord } from './productResearch';
+import { PricingIntelligenceResult } from './pricingIntelligence';
+
 export type ConfidenceLevel = 'high' | 'medium' | 'low';
 
 export interface ProductSpecification {
@@ -45,6 +49,9 @@ export interface MarketResearchResult {
   uncertaintyNotes: string[];
   researchedAt: string;
   isMockData?: boolean;
+  interpretation?: ProductQueryInterpretation;
+  researchRecords?: ProductResearchRecord[];
+  pricingIntelligence?: PricingIntelligenceResult;
 }
 
 export type SearchStatus = 'idle' | 'loading' | 'success' | 'error';

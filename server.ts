@@ -3,6 +3,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { searchProduct, SearchValidationError } from './server/searchProduct.ts';
+import { understandProductQuery } from './server/services/queryUnderstandingService.ts';
+import { researchProduct } from './server/research/researchProduct.ts';
+import { estimateMarketPrice } from './server/pricing/pricingEngine.ts';
 
 dotenv.config();
 
@@ -58,6 +61,102 @@ async function startServer() {
           error: message,
         });
       }
+    }
+  });
+
+  // Dedicated AI Query Understanding Endpoint
+  app.post('/api/understand-query', async (req, res) => {
+    try {
+      const { query } = req.body || {};
+      if (typeof query !== 'string' || !query.trim()) {
+        return res.status(400).json({
+          success: false,
+          error: 'Search query cannot be empty. Please provide a product or material text string.',
+        });
+      }
+      if (query.trim().length > 200) {
+        return res.status(400).json({
+          success: false,
+          error: 'Search query exceeds maximum limit of 200 characters.',
+        });
+      }
+      const data = await understandProductQuery(query);
+      res.json({
+        success: true,
+        data,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to analyze product query.';
+      res.status(500).json({
+        success: false,
+        error: message,
+      });
+    }
+  });
+
+  // Dedicated Product Web Research Layer Endpoint
+  app.post('/api/research', async (req, res) => {
+    try {
+      const { query, interpretation } = req.body || {};
+
+      let parsedInterpretation = interpretation;
+      if (!parsedInterpretation) {
+        if (typeof query !== 'string' || !query.trim()) {
+          return res.status(400).json({
+            success: false,
+            error: 'Either query text or a structured interpretation is required.',
+          });
+        }
+        parsedInterpretation = await understandProductQuery(query);
+      }
+
+      const researchData = await researchProduct(parsedInterpretation);
+      res.json({
+        success: true,
+        data: researchData,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Web research stage failed.';
+      res.status(500).json({
+        success: false,
+        error: message,
+      });
+    }
+  });
+
+  // Dedicated Pricing Intelligence Layer Endpoint
+  app.post('/api/pricing', async (req, res) => {
+    try {
+      const { records, interpretation, query, currency } = req.body || {};
+
+      let parsedInterpretation = interpretation;
+      if (!parsedInterpretation) {
+        if (typeof query !== 'string' || !query.trim()) {
+          return res.status(400).json({
+            success: false,
+            error: 'Either query text or a structured interpretation is required.',
+          });
+        }
+        parsedInterpretation = await understandProductQuery(query);
+      }
+
+      let researchRecords = records;
+      if (!Array.isArray(researchRecords)) {
+        const researchData = await researchProduct(parsedInterpretation);
+        researchRecords = researchData.records;
+      }
+
+      const pricingResult = estimateMarketPrice(researchRecords, parsedInterpretation, currency);
+      res.json({
+        success: true,
+        data: pricingResult,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Pricing intelligence calculation failed.';
+      res.status(500).json({
+        success: false,
+        error: message,
+      });
     }
   });
 
