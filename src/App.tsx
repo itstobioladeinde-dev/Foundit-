@@ -1,6 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { Navbar } from './components/Navbar';
-import { SearchSection } from './components/SearchSection';
+import { HeroSection } from './components/landing/HeroSection';
+import { TrustedSourcesStrip } from './components/landing/TrustedSourcesStrip';
+import { StatsRow } from './components/landing/StatsRow';
+import { HowItWorks } from './components/landing/HowItWorks';
+import { FeaturesBentoGrid } from './components/landing/FeaturesBentoGrid';
+import { DarkContrastingSection } from './components/landing/DarkContrastingSection';
+import { LargeCounterSection } from './components/landing/LargeCounterSection';
+import { Footer } from './components/landing/Footer';
 import { LoadingPipeline } from './components/LoadingPipeline';
 import { ErrorState } from './components/ErrorState';
 import { EmptyState } from './components/EmptyState';
@@ -40,6 +47,9 @@ export default function App() {
     setStatus('loading');
     setErrorMessage('');
 
+    // Smoothly scroll to the top to see the loading pipeline or results
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     try {
       // Dispatch real network request to server-side endpoint
       const searchData = await searchProductApi(trimmed, controller.signal);
@@ -70,6 +80,7 @@ export default function App() {
     setStatus('idle');
     setResult(null);
     setErrorMessage('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleRetry = () => {
@@ -79,57 +90,85 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 antialiased selection:bg-slate-200">
+    <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans text-slate-900 antialiased selection:bg-indigo-100 selection:text-indigo-950">
       {/* Navigation Header */}
-      <Navbar onReset={handleReset} />
+      <Navbar
+        onReset={handleReset}
+        onNewSearchClick={() => {
+          handleReset();
+        }}
+      />
 
-      {/* Main Content Area */}
-      <main className="flex-1 pb-16">
-        {/* Search Header / Omnibox */}
-        <SearchSection
+      {/* Main Content Flow */}
+      <main className="flex-1">
+        {/* 1. Hero with centered search bar & floating preview cards */}
+        <HeroSection
           onSearch={executeSearch}
           isLoading={status === 'loading'}
           initialQuery={currentQuery}
         />
 
-        {/* State Display Router */}
+        {/* 2. Loading State */}
         {status === 'loading' && (
-          <LoadingPipeline query={currentQuery} />
+          <div className="py-8">
+            <LoadingPipeline query={currentQuery} />
+          </div>
         )}
 
+        {/* 3. Error State with Retry */}
         {status === 'error' && (
-          <ErrorState
-            message={errorMessage}
-            onRetry={handleRetry}
-            query={currentQuery}
-          />
+          <div className="py-8">
+            <ErrorState
+              message={errorMessage}
+              onRetry={handleRetry}
+              query={currentQuery}
+            />
+          </div>
         )}
 
+        {/* 4. Results View */}
         {status === 'success' && result && (
-          <MarketResultDashboard
-            result={result}
-            onNewSearch={handleReset}
-          />
+          <div className="py-4">
+            <MarketResultDashboard
+              result={result}
+              onNewSearch={handleReset}
+            />
+          </div>
         )}
 
+        {/* 5. Landing Page Sections (When in Idle State or below results) */}
         {status === 'idle' && (
-          <EmptyState onSelectQuery={executeSearch} />
+          <>
+            {/* Trusted-by / Sources Logo Strip */}
+            <TrustedSourcesStrip />
+
+            {/* Stats Row with Soft Cards & Count-Up */}
+            <StatsRow />
+
+            {/* How It Works (Search, AI research, Price estimate) */}
+            <HowItWorks />
+
+            {/* Features in Bento Grid Layout */}
+            <FeaturesBentoGrid />
+
+            {/* One Dark Contrasting Section (Luxurious Forest Green / Emerald Mood) */}
+            <DarkContrastingSection onSearchExample={executeSearch} />
+
+            {/* Large Number Counter Section */}
+            <LargeCounterSection
+              onSearchCTA={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+
+            {/* Category Discovery & Persisted Database History */}
+            <EmptyState onSelectQuery={executeSearch} />
+          </>
         )}
       </main>
 
-      {/* Quiet Footer */}
-      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
-        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <span>MarketProbe © 2026 · Evidence-based physical item market intelligence</span>
-          <div className="flex items-center gap-4 text-slate-400">
-            <span>Text-search only</span>
-            <span>·</span>
-            <span>Secure Server-Side API</span>
-            <span>·</span>
-            <span>Provider-Agnostic</span>
-          </div>
-        </div>
-      </footer>
+      {/* Modern SaaS Footer */}
+      <Footer />
     </div>
   );
 }

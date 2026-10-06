@@ -1,5 +1,6 @@
-import React from 'react';
-import { Layers, Wrench, Shield, Smartphone, ArrowUpRight, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Layers, Wrench, Shield, Smartphone, ArrowUpRight, CheckCircle, History, Clock } from 'lucide-react';
+import { SearchWithFullRelations } from '../../server/db/schema';
 
 interface EmptyStateProps {
   onSelectQuery: (query: string) => void;
@@ -33,8 +34,23 @@ const CATEGORIES = [
 ];
 
 export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
+  const [recentSearches, setRecentSearches] = useState<SearchWithFullRelations[]>([]);
+
+  useEffect(() => {
+    fetch('/api/history')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.data)) {
+          setRecentSearches(data.data.slice(0, 4));
+        }
+      })
+      .catch(() => {
+        // Quiet fallback if offline or no previous history
+      });
+  }, []);
+
   return (
-    <div className="max-w-5xl mx-auto my-8 px-4">
+    <div className="max-w-5xl mx-auto my-8 px-4 space-y-6">
       {/* Category Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {CATEGORIES.map((cat) => {
@@ -73,8 +89,53 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
         })}
       </div>
 
+      {/* Database Persisted Search History */}
+      {recentSearches.length > 0 && (
+        <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-2xs text-left">
+          <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-slate-100">
+            <History className="w-4 h-4 text-indigo-600" />
+            <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider">
+              Persisted Search History (Database Records)
+            </h4>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {recentSearches.map((item) => {
+              const formattedTime = new Date(item.search.created_at).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              });
+
+              return (
+                <button
+                  key={item.search.id}
+                  onClick={() => onSelectQuery(item.search.original_query)}
+                  className="p-3 bg-slate-50 hover:bg-slate-100/90 rounded-lg border border-slate-200/80 transition-colors text-left flex items-start justify-between gap-3 group focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none"
+                >
+                  <div className="min-w-0">
+                    <span className="text-xs font-semibold text-slate-900 block truncate group-hover:text-indigo-600 transition-colors">
+                      {item.search.original_query}
+                    </span>
+                    <span className="text-[11px] text-slate-500 block truncate mt-0.5">
+                      {item.finalResult
+                        ? `${item.finalResult.product_name} · ${item.finalResult.currency === 'USD' ? '$' : item.finalResult.currency === 'NGN' ? '₦' : ''}${item.finalResult.benchmark_price?.toLocaleString() || 'Unlisted'}`
+                        : 'Completed'}
+                    </span>
+                  </div>
+
+                  <span className="text-[10px] text-slate-400 shrink-0 flex items-center gap-1 mt-0.5 font-mono">
+                    <Clock className="w-3 h-3" />
+                    <span>{formattedTime}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Methodology & Safety Guarantees */}
-      <div className="mt-8 p-5 bg-slate-50/70 rounded-xl border border-slate-200 text-left">
+      <div className="p-5 bg-slate-50/70 rounded-xl border border-slate-200 text-left">
         <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2">
           Methodology & Pricing Integrity
         </h4>
@@ -96,8 +157,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
           <div className="flex items-start gap-2">
             <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
-              <strong className="text-slate-800 font-medium block">Explicit Assumptions</strong>
-              <span>Notes unit sizing, minimum pallet volumes, and whether freight is included.</span>
+              <strong className="text-slate-800 font-medium block">Persistent Audit Trail</strong>
+              <span>Every query, interpretation, source quote, and benchmark is stored with relational links.</span>
             </div>
           </div>
         </div>

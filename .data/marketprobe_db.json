@@ -1,0 +1,380 @@
+{
+  "version": 1,
+  "searches": [
+    {
+      "id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "original_query": "stainless steel pipe 2 inch Schedule 40",
+      "normalized_query": "stainless steel pipe 2 inch schedule 40",
+      "status": "completed",
+      "created_at": "2026-10-06T23:25:53.520Z",
+      "updated_at": "2026-10-06T23:25:53.785Z"
+    },
+    {
+      "id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "original_query": "12mm plywood",
+      "normalized_query": "12mm plywood",
+      "status": "completed",
+      "created_at": "2026-10-06T23:29:36.330Z",
+      "updated_at": "2026-10-06T23:29:36.594Z"
+    }
+  ],
+  "interpretations": [
+    {
+      "id": "41d3e688-b045-4276-af0d-c25d8fae4e9c",
+      "search_id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "name": "Stainless Steel Pipe 2 Inch Schedule 40",
+      "category": "Industrial Piping & Metal Products",
+      "description": "Standard market catalog specification for Stainless Steel Pipe 2 Inch Schedule 40, classified under Industrial Piping & Metal Products.",
+      "brand": null,
+      "model": null,
+      "material": "steel",
+      "specifications": [
+        "2 inch",
+        "schedule 40",
+        "Corrosion-resistant Stainless Finish"
+      ],
+      "possible_variants": [
+        "Stainless Steel Pipe 2 Inch Schedule 40 Standard Commercial Grade",
+        "Stainless Steel Pipe 2 Inch Schedule 40 Heavy-Duty / Premium Grade"
+      ],
+      "search_queries": [
+        "Stainless Steel Pipe 2 Inch Schedule 40 price quote",
+        "Stainless Steel Pipe 2 Inch Schedule 40 distributor supplier catalog",
+        "Stainless Steel Pipe 2 Inch Schedule 40 specification sheet cost"
+      ],
+      "confidence": 0.85,
+      "uncertainties": [],
+      "created_at": "2026-10-06T23:25:53.523Z"
+    },
+    {
+      "id": "b6ad5f64-ec4c-4f73-9d63-2f25843479a0",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "name": "12mm Plywood",
+      "category": "Building Materials & Construction",
+      "description": "Standard market catalog specification for 12mm Plywood, classified under Building Materials & Construction.",
+      "brand": null,
+      "model": null,
+      "material": "plywood",
+      "specifications": [
+        "12mm"
+      ],
+      "possible_variants": [
+        "12mm Plywood Standard Commercial Grade",
+        "12mm Plywood Heavy-Duty / Premium Grade"
+      ],
+      "search_queries": [
+        "12mm Plywood price quote",
+        "12mm Plywood distributor supplier catalog",
+        "12mm Plywood specification sheet cost"
+      ],
+      "confidence": 0.85,
+      "uncertainties": [],
+      "created_at": "2026-10-06T23:29:36.333Z"
+    }
+  ],
+  "sources": [
+    {
+      "id": "cf24507d-efb0-4e8d-bf75-927c2e11da9e",
+      "search_id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "source": "McMaster-Carr Industrial Supply",
+      "title": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40) - McMaster-Carr Industrial Supply",
+      "url": "https://mcmaster.com/",
+      "seller": "McMaster-Carr Industrial Supply",
+      "brand": "Schedule 40 Welded Grade 304 (Standard industrial)",
+      "product": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40)",
+      "price": 218.4,
+      "currency": "USD",
+      "availability": "In Stock",
+      "specifications": [
+        "Nominal Pipe Size (NPS): 2 inch (50.8 mm nominal)",
+        "Outer Diameter (OD): 2.375 in (60.33 mm)",
+        "Wall Thickness: Schedule 10: 0.109 in (2.77 mm) / Schedule 40: 0.154 in (3.91 mm)",
+        "Material Grade: ASTM A312 TP304 / TP304L (or TP316 for marine/acidic environments)"
+      ],
+      "retrieved_at": "2026-10-06T23:25:53.524Z"
+    },
+    {
+      "id": "babffb3e-c390-434b-bb6b-9c5f17bd3d47",
+      "search_id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "source": "Ryerson Metals Service",
+      "title": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40) - Ryerson Metals Service",
+      "url": "https://ryerson.com/",
+      "seller": "Ryerson Metals Service",
+      "brand": "Schedule 40 Welded Grade 304 (Standard industrial)",
+      "product": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40)",
+      "price": 162,
+      "currency": "USD",
+      "availability": "In Stock",
+      "specifications": [
+        "Nominal Pipe Size (NPS): 2 inch (50.8 mm nominal)",
+        "Outer Diameter (OD): 2.375 in (60.33 mm)",
+        "Wall Thickness: Schedule 10: 0.109 in (2.77 mm) / Schedule 40: 0.154 in (3.91 mm)",
+        "Material Grade: ASTM A312 TP304 / TP304L (or TP316 for marine/acidic environments)"
+      ],
+      "retrieved_at": "2026-10-06T23:25:53.524Z"
+    },
+    {
+      "id": "6352c5ec-d48e-4251-88b0-8311649b9cee",
+      "search_id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "source": "MetalsDepot Commercial",
+      "title": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40) - MetalsDepot Commercial",
+      "url": "https://metalsdepot.com/",
+      "seller": "MetalsDepot Commercial",
+      "brand": "Schedule 40 Welded Grade 304 (Standard industrial)",
+      "product": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40)",
+      "price": 312,
+      "currency": "USD",
+      "availability": "In Stock",
+      "specifications": [
+        "Nominal Pipe Size (NPS): 2 inch (50.8 mm nominal)",
+        "Outer Diameter (OD): 2.375 in (60.33 mm)",
+        "Wall Thickness: Schedule 10: 0.109 in (2.77 mm) / Schedule 40: 0.154 in (3.91 mm)",
+        "Material Grade: ASTM A312 TP304 / TP304L (or TP316 for marine/acidic environments)"
+      ],
+      "retrieved_at": "2026-10-06T23:25:53.524Z"
+    },
+    {
+      "id": "2713e858-7c67-4f56-8297-d0eac6b59820",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "source": "Home Depot Pro Supplies",
+      "title": "12mm Hardwood / CDX Plywood Sheet - Home Depot Pro Supplies",
+      "url": "https://homedepot.com/",
+      "seller": "Home Depot Pro Supplies",
+      "brand": "Weyerhaeuser Edge Gold",
+      "product": "12mm Hardwood / CDX Plywood Sheet",
+      "price": 32.98,
+      "currency": "USD",
+      "availability": "In Stock",
+      "specifications": [
+        "Nominal Thickness: 12 mm (15/32 in)",
+        "Standard Dimensions: 4 ft × 8 ft (1220 mm × 2440 mm)",
+        "Core Veneer: Mixed Light Hardwood / Pine Core",
+        "Glue Classification: Exterior Grade / WBP / Phenolic"
+      ],
+      "retrieved_at": "2026-10-06T23:29:36.334Z"
+    },
+    {
+      "id": "c3fd9ab3-7d47-4e8b-ac9c-33541d1c161a",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "source": "Lowe’s Building Center",
+      "title": "12mm Hardwood / CDX Plywood Sheet - Lowe’s Building Center",
+      "url": "https://lowes.com/",
+      "seller": "Lowe’s Building Center",
+      "brand": "Weyerhaeuser Edge Gold",
+      "product": "12mm Hardwood / CDX Plywood Sheet",
+      "price": 34.25,
+      "currency": "USD",
+      "availability": "In Stock",
+      "specifications": [
+        "Nominal Thickness: 12 mm (15/32 in)",
+        "Standard Dimensions: 4 ft × 8 ft (1220 mm × 2440 mm)",
+        "Core Veneer: Mixed Light Hardwood / Pine Core",
+        "Glue Classification: Exterior Grade / WBP / Phenolic"
+      ],
+      "retrieved_at": "2026-10-06T23:29:36.334Z"
+    },
+    {
+      "id": "0743d928-fc85-4e4d-8524-0270f14fad8e",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "source": "84 Lumber Wholesale",
+      "title": "12mm Hardwood / CDX Plywood Sheet - 84 Lumber Wholesale",
+      "url": "https://84lumber.com/",
+      "seller": "84 Lumber Wholesale",
+      "brand": "Weyerhaeuser Edge Gold",
+      "product": "12mm Hardwood / CDX Plywood Sheet",
+      "price": 28.5,
+      "currency": "USD",
+      "availability": "In Stock",
+      "specifications": [
+        "Nominal Thickness: 12 mm (15/32 in)",
+        "Standard Dimensions: 4 ft × 8 ft (1220 mm × 2440 mm)",
+        "Core Veneer: Mixed Light Hardwood / Pine Core",
+        "Glue Classification: Exterior Grade / WBP / Phenolic"
+      ],
+      "retrieved_at": "2026-10-06T23:29:36.334Z"
+    },
+    {
+      "id": "ba587398-c064-4005-844a-64d044a6ebea",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "source": "Woodcraft Specialty Woods",
+      "title": "12mm Hardwood / CDX Plywood Sheet - Woodcraft Specialty Woods",
+      "url": "https://woodcraft.com/",
+      "seller": "Woodcraft Specialty Woods",
+      "brand": "Weyerhaeuser Edge Gold",
+      "product": "12mm Hardwood / CDX Plywood Sheet",
+      "price": 46.99,
+      "currency": "USD",
+      "availability": "In Stock",
+      "specifications": [
+        "Nominal Thickness: 12 mm (15/32 in)",
+        "Standard Dimensions: 4 ft × 8 ft (1220 mm × 2440 mm)",
+        "Core Veneer: Mixed Light Hardwood / Pine Core",
+        "Glue Classification: Exterior Grade / WBP / Phenolic"
+      ],
+      "retrieved_at": "2026-10-06T23:29:36.334Z"
+    }
+  ],
+  "observations": [
+    {
+      "id": "b7015dc6-19ca-4836-ba6a-0c5d143be4ac",
+      "search_id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "source": "McMaster-Carr Industrial Supply",
+      "source_url": "https://mcmaster.com/",
+      "seller": "McMaster-Carr Industrial Supply",
+      "product_title": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40) - McMaster-Carr Industrial Supply",
+      "original_price": 218.4,
+      "original_currency": "USD",
+      "normalized_price": 218.4,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-06T23:25:53.526Z"
+    },
+    {
+      "id": "d30f0041-8ef7-4ab3-b8b9-a435fe24cec3",
+      "search_id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "source": "Ryerson Metals Service",
+      "source_url": "https://ryerson.com/",
+      "seller": "Ryerson Metals Service",
+      "product_title": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40) - Ryerson Metals Service",
+      "original_price": 162,
+      "original_currency": "USD",
+      "normalized_price": 162,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-06T23:25:53.527Z"
+    },
+    {
+      "id": "0c8c9764-c1ff-41f0-8eb5-675eabd2358b",
+      "search_id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "source": "MetalsDepot Commercial",
+      "source_url": "https://metalsdepot.com/",
+      "seller": "MetalsDepot Commercial",
+      "product_title": "2-Inch Nominal Stainless Steel Pipe (Schedule 10 / 40) - MetalsDepot Commercial",
+      "original_price": 312,
+      "original_currency": "USD",
+      "normalized_price": 312,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-06T23:25:53.527Z"
+    },
+    {
+      "id": "fa9637d1-9b98-489a-82d2-0040281b5a7a",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "source": "Home Depot Pro Supplies",
+      "source_url": "https://homedepot.com/",
+      "seller": "Home Depot Pro Supplies",
+      "product_title": "12mm Hardwood / CDX Plywood Sheet - Home Depot Pro Supplies",
+      "original_price": 32.98,
+      "original_currency": "USD",
+      "normalized_price": 32.98,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-06T23:29:36.338Z"
+    },
+    {
+      "id": "ffe96ef9-ed2d-46b5-b2f1-31047602e361",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "source": "Lowe’s Building Center",
+      "source_url": "https://lowes.com/",
+      "seller": "Lowe’s Building Center",
+      "product_title": "12mm Hardwood / CDX Plywood Sheet - Lowe’s Building Center",
+      "original_price": 34.25,
+      "original_currency": "USD",
+      "normalized_price": 34.25,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-06T23:29:36.338Z"
+    },
+    {
+      "id": "16075f23-79ea-4ec3-9291-05b20e45d234",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "source": "84 Lumber Wholesale",
+      "source_url": "https://84lumber.com/",
+      "seller": "84 Lumber Wholesale",
+      "product_title": "12mm Hardwood / CDX Plywood Sheet - 84 Lumber Wholesale",
+      "original_price": 28.5,
+      "original_currency": "USD",
+      "normalized_price": 28.5,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-06T23:29:36.338Z"
+    },
+    {
+      "id": "366c5884-60e2-4f14-9b37-82e62844fad9",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "source": "Woodcraft Specialty Woods",
+      "source_url": "https://woodcraft.com/",
+      "seller": "Woodcraft Specialty Woods",
+      "product_title": "12mm Hardwood / CDX Plywood Sheet - Woodcraft Specialty Woods",
+      "original_price": 46.99,
+      "original_currency": "USD",
+      "normalized_price": 46.99,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-06T23:29:36.338Z"
+    }
+  ],
+  "finalResults": [
+    {
+      "id": "aa80be3a-0936-4984-9e3b-9e0a9991c82b",
+      "search_id": "2d8dd9f7-a08f-4024-9a0c-42c8f6a01afb",
+      "product_name": "Stainless Steel Pipe 2 Inch Schedule 40",
+      "category": "Industrial Piping & Metal Products",
+      "description": "Standard market catalog specification for Stainless Steel Pipe 2 Inch Schedule 40, classified under Industrial Piping & Metal Products.",
+      "brand": null,
+      "model": null,
+      "benchmark_price": 218.4,
+      "range_min": 162,
+      "range_max": 312,
+      "currency": "USD",
+      "confidence": "low",
+      "quote_count": 3,
+      "unit_of_measure": "per 20ft length (Schedule 40)",
+      "methodology": "Calculated from 3 quotes displaying high variance or variant divergence.",
+      "limitations": [
+        "Global alloy surcharges on nickel and molybdenum heavily fluctuate monthly steel service center quotes.",
+        "Dramatically different price points exist between thin-wall Schedule 10 vs thick-wall Schedule 80.",
+        "Wide price spread observed (162 to 312 USD); variance may stem from grade, packaging volume, or geographic tariffs."
+      ],
+      "disclaimer": "Prices reflect recent public supplier observations and are subject to real-time market shifts, local taxes, freight, and vendor stock fluctuations.",
+      "created_at": "2026-10-06T23:25:53.785Z"
+    },
+    {
+      "id": "ea080275-cce0-4098-811c-95ffd1269e29",
+      "search_id": "6d757d4f-8150-450e-8373-8f25ca42ac4e",
+      "product_name": "12mm Plywood",
+      "category": "Building Materials & Construction",
+      "description": "Standard market catalog specification for 12mm Plywood, classified under Building Materials & Construction.",
+      "brand": null,
+      "model": null,
+      "benchmark_price": 33.61,
+      "range_min": 28.5,
+      "range_max": 46.99,
+      "currency": "USD",
+      "confidence": "medium",
+      "quote_count": 4,
+      "unit_of_measure": "per 4ft × 8ft sheet",
+      "methodology": "Calculated median across 4 independent merchant observations with moderate price variance.",
+      "limitations": [
+        "Softwood lumber index volatility can shift regional pricing by ±12% month-over-month.",
+        "Prices vary widely between standard construction CDX ($26-$36) and premium void-free Birch ($45-$65)."
+      ],
+      "disclaimer": "Prices reflect recent public supplier observations and are subject to real-time market shifts, local taxes, freight, and vendor stock fluctuations.",
+      "created_at": "2026-10-06T23:29:36.594Z"
+    }
+  ]
+}

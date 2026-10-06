@@ -24,16 +24,17 @@ export interface SourcePriceQuote {
 }
 
 export interface PriceEstimate {
-  benchmarkPrice: number;
+  benchmarkPrice: number | null;
   currency: string;
   formattedBenchmark: string;
-  rangeMin: number;
-  rangeMax: number;
+  rangeMin: number | null;
+  rangeMax: number | null;
   formattedRange: string;
   unitOfMeasure: string;
   confidence: ConfidenceLevel;
   confidenceReason: string;
   quoteCount: number;
+  isPriceAvailable?: boolean;
 }
 
 export interface MarketResearchResult {
@@ -41,17 +42,21 @@ export interface MarketResearchResult {
   productName: string;
   category: string;
   description: string;
+  brand?: string | null;
+  model?: string | null;
   specifications: ProductSpecification[];
   brandsOrVariants: string[];
   priceEstimate: PriceEstimate;
   sourceQuotes: SourcePriceQuote[];
   assumptions: string[];
   uncertaintyNotes: string[];
+  disclaimer?: string;
   researchedAt: string;
   isMockData?: boolean;
   interpretation?: ProductQueryInterpretation;
   researchRecords?: ProductResearchRecord[];
   pricingIntelligence?: PricingIntelligenceResult;
+  searchId?: string;
 }
 
 export type SearchStatus = 'idle' | 'loading' | 'success' | 'error';

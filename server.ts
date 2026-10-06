@@ -6,6 +6,12 @@ import { searchProduct, SearchValidationError } from './server/searchProduct.ts'
 import { understandProductQuery } from './server/services/queryUnderstandingService.ts';
 import { researchProduct } from './server/research/researchProduct.ts';
 import { estimateMarketPrice } from './server/pricing/pricingEngine.ts';
+import { db } from './server/db/database.ts';
+import {
+  securityHeadersMiddleware,
+  rateLimiterMiddleware,
+  requestLoggerMiddleware,
+} from './server/middleware/security.ts';
 
 dotenv.config();
 
@@ -15,6 +21,15 @@ const __dirname = path.dirname(__filename);
 async function startServer() {
   const app = express();
   const PORT = process.env.PORT || 3000;
+
+  // Defensive HTTP Headers
+  app.use(securityHeadersMiddleware);
+
+  // Request logging
+  app.use(requestLoggerMiddleware);
+
+  // Rate Limiting for API routes
+  app.use('/api', rateLimiterMiddleware);
 
   // JSON Body Parser with safe size boundary
   app.use(express.json({ limit: '100kb' }));
@@ -153,6 +168,48 @@ async function startServer() {
       });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Pricing intelligence calculation failed.';
+      res.status(500).json({
+        success: false,
+        error: message,
+      });
+    }
+  });
+
+  // Database: Recent Searches History Endpoint
+  app.get('/api/history', (_req, res) => {
+    try {
+      const recent = db.getRecentSearches(15);
+      res.json({
+        success: true,
+        count: recent.length,
+        data: recent,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to retrieve search history.';
+      res.status(500).json({
+        success: false,
+        error: message,
+      });
+    }
+  });
+
+  // Database: Full Relational Search Record Lookup Endpoint
+  app.get('/api/searches/:id', (req, res) => {
+    try {
+      const { id } = req.params;
+      const fullRecord = db.getSearchWithRelations(id);
+      if (!fullRecord) {
+        return res.status(404).json({
+          success: false,
+          error: `Search record with ID "${id}" was not found.`,
+        });
+      }
+      res.json({
+        success: true,
+        data: fullRecord,
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to retrieve search details.';
       res.status(500).json({
         success: false,
         error: message,
