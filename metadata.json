@@ -1,0 +1,6 @@
+{
+  "name": "MarketProbe - AI Product & Price Intelligence",
+  "description": "Text-search market intelligence tool researching live web sources to extract verified product specifications, benchmark prices, and market ranges with source attribution.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
