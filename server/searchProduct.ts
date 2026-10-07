@@ -69,6 +69,14 @@ export async function searchProduct(rawQuery: unknown): Promise<MarketResearchRe
   const recentCached = db.findSearchesByQuery(sanitized);
   const validCached = recentCached.find((c) => {
     if (c.search.status === 'completed' && c.finalResult) {
+      // Invalidate if it's the broken hardcoded 41.75 / 38.5 artifact
+      if (
+        c.finalResult.benchmark_price === 41.75 &&
+        c.finalResult.range_min === 38.5 &&
+        c.finalResult.range_max === 45
+      ) {
+        return false;
+      }
       const age = Date.now() - new Date(c.search.created_at).getTime();
       return age < CACHE_TTL_MS;
     }
