@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/landing/HeroSection';
+import { CategoryShowcase } from './components/landing/CategoryShowcase';
+import { PromotionalBanner } from './components/landing/PromotionalBanner';
 import { TrustedSourcesStrip } from './components/landing/TrustedSourcesStrip';
 import { StatsRow } from './components/landing/StatsRow';
 import { HowItWorks } from './components/landing/HowItWorks';
@@ -90,18 +92,19 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafaf9] flex flex-col font-sans text-slate-900 antialiased selection:bg-indigo-100 selection:text-indigo-950">
-      {/* Navigation Header */}
+    <div className="min-h-screen bg-[#06130c] flex flex-col font-sans text-white antialiased selection:bg-[#ccff00] selection:text-[#06130c]">
+      {/* Navigation Header with Floating Pill */}
       <Navbar
         onReset={handleReset}
         onNewSearchClick={() => {
           handleReset();
+          document.getElementById('search-input')?.focus();
         }}
       />
 
       {/* Main Content Flow */}
       <main className="flex-1">
-        {/* 1. Hero with centered search bar & floating preview cards */}
+        {/* 1. Hero with editorial typography, centered search bar & 3D data pedestal */}
         <HeroSection
           onSearch={executeSearch}
           isLoading={status === 'loading'}
@@ -139,8 +142,14 @@ export default function App() {
         {/* 5. Landing Page Sections (When in Idle State or below results) */}
         {status === 'idle' && (
           <>
-            {/* Trusted-by / Sources Logo Strip */}
+            {/* Trusted-by / Sources Strip */}
             <TrustedSourcesStrip />
+
+            {/* Category Showcase: Direct translation of "Shop By Category" 5 vertical cards */}
+            <CategoryShowcase onSelectCategory={executeSearch} />
+
+            {/* Promotional Banner: Direct translation of "New Arrival: Small Size. Big Performance." card */}
+            <PromotionalBanner onSearchCTA={executeSearch} />
 
             {/* Stats Row with Soft Cards & Count-Up */}
             <StatsRow />
@@ -151,13 +160,14 @@ export default function App() {
             {/* Features in Bento Grid Layout */}
             <FeaturesBentoGrid />
 
-            {/* One Dark Contrasting Section (Luxurious Forest Green / Emerald Mood) */}
+            {/* Dark Contrasting Section (Commodity Tickers) */}
             <DarkContrastingSection onSearchExample={executeSearch} />
 
-            {/* Large Number Counter Section */}
+            {/* Large Number Counter Section ($145M+) */}
             <LargeCounterSection
               onSearchCTA={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.getElementById('search-input')?.focus();
               }}
             />
 
@@ -167,7 +177,7 @@ export default function App() {
         )}
       </main>
 
-      {/* Modern SaaS Footer */}
+      {/* Modern Minimal SaaS Footer */}
       <Footer />
     </div>
   );

@@ -11,25 +11,25 @@ const CATEGORIES = [
     title: 'Building & Construction Materials',
     description: 'Sheet goods, cementitious substrates, lumber, insulation, masonry.',
     icon: Layers,
-    examples: ['12mm plywood', 'cement board'],
+    examples: ['12mm marine plywood', 'cement board 1/2"'],
   },
   {
     title: 'Industrial Hardware & Piping',
     description: 'Stainless pipe, valves, structural fasteners, metals by schedule and gauge.',
     icon: Wrench,
-    examples: ['stainless steel pipe 2 inch'],
+    examples: ['stainless steel pipe 2 inch', 'schedule 40 pvc valve'],
   },
   {
     title: 'Safety Equipment & PPE',
     description: 'Hard hats, respiratory gear, eye protection, harnesses.',
     icon: Shield,
-    examples: ['industrial safety helmet'],
+    examples: ['industrial safety helmet', 'n95 respirator 3m'],
   },
   {
     title: 'Electronics & Commercial Gear',
     description: 'Unlocked devices, ergonomic seating, appliances, workshop tools.',
     icon: Smartphone,
-    examples: ['Samsung A55', 'office chair'],
+    examples: ['Samsung A55 128GB', 'commercial mesh task chair'],
   },
 ];
 
@@ -50,7 +50,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto my-8 px-4 space-y-6">
+    <div id="history" className="max-w-6xl mx-auto my-12 px-4 space-y-6 text-left">
       {/* Category Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {CATEGORIES.map((cat) => {
@@ -58,29 +58,29 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
           return (
             <div
               key={cat.title}
-              className="p-5 bg-white rounded-xl border border-slate-200/80 shadow-2xs hover:border-slate-300 transition-colors text-left"
+              className="p-6 rounded-[22px] bg-gradient-to-b from-[#0a1e14] to-[#07160e] border border-emerald-500/20 hover:border-[#ccff00]/40 transition-all duration-300 shadow-md text-left"
             >
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4" />
+              <div className="flex items-start gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-emerald-950 text-[#ccff00] flex items-center justify-center shrink-0 border border-[#ccff00]/30 shadow-inner">
+                  <Icon className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-900">{cat.title}</h3>
-                  <p className="mt-1 text-xs text-slate-500 leading-relaxed">{cat.description}</p>
+                  <h3 className="text-sm font-bold text-white">{cat.title}</h3>
+                  <p className="mt-1 text-xs text-slate-300 leading-relaxed">{cat.description}</p>
                 </div>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-                <span className="text-[11px] text-slate-400 mr-1">Try:</span>
+              <div className="mt-4 pt-3.5 border-t border-white/10 flex flex-wrap items-center gap-2">
+                <span className="text-[11px] font-mono text-slate-400 mr-1">Quick Run:</span>
                 {cat.examples.map((item) => (
                   <button
                     key={item}
                     type="button"
                     onClick={() => onSelectQuery(item)}
-                    className="inline-flex items-center gap-1 text-xs font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 hover:text-slate-900 px-2.5 py-1 rounded border border-slate-200 transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-white/5 hover:bg-[#ccff00] hover:text-[#06130c] px-3 py-1.5 rounded-full border border-white/10 hover:border-[#ccff00] transition-all cursor-pointer"
                   >
                     <span>{item}</span>
-                    <ArrowUpRight className="w-3 h-3 text-slate-400" />
+                    <ArrowUpRight className="w-3 h-3 stroke-[2.5]" />
                   </button>
                 ))}
               </div>
@@ -91,15 +91,18 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
 
       {/* Database Persisted Search History */}
       {recentSearches.length > 0 && (
-        <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-2xs text-left">
-          <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-slate-100">
-            <History className="w-4 h-4 text-indigo-600" />
-            <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider">
-              Persisted Search History (Database Records)
-            </h4>
+        <div className="p-6 rounded-[24px] bg-gradient-to-b from-[#0a1e14] to-[#07160e] border border-emerald-500/20 shadow-md text-left">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <History className="w-4 h-4 text-[#ccff00]" />
+              <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono">
+                Persisted Search History (Database Records)
+              </h4>
+            </div>
+            <span className="text-[10px] text-emerald-400 font-mono">SQLite / Relational Schema</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {recentSearches.map((item) => {
               const formattedTime = new Date(item.search.created_at).toLocaleTimeString([], {
                 hour: '2-digit',
@@ -110,13 +113,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
                 <button
                   key={item.search.id}
                   onClick={() => onSelectQuery(item.search.original_query)}
-                  className="p-3 bg-slate-50 hover:bg-slate-100/90 rounded-lg border border-slate-200/80 transition-colors text-left flex items-start justify-between gap-3 group focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none"
+                  className="p-3.5 bg-black/40 hover:bg-[#0e2c1c] rounded-xl border border-white/5 hover:border-[#ccff00]/40 transition-all text-left flex items-start justify-between gap-3 group cursor-pointer"
                 >
                   <div className="min-w-0">
-                    <span className="text-xs font-semibold text-slate-900 block truncate group-hover:text-indigo-600 transition-colors">
+                    <span className="text-xs font-bold text-white block truncate group-hover:text-[#ccff00] transition-colors">
                       {item.search.original_query}
                     </span>
-                    <span className="text-[11px] text-slate-500 block truncate mt-0.5">
+                    <span className="text-[11px] text-slate-400 block truncate mt-0.5 font-mono">
                       {item.finalResult
                         ? `${item.finalResult.product_name} · ${item.finalResult.currency === 'USD' ? '$' : item.finalResult.currency === 'NGN' ? '₦' : ''}${item.finalResult.benchmark_price?.toLocaleString() || 'Unlisted'}`
                         : 'Completed'}
@@ -124,7 +127,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
                   </div>
 
                   <span className="text-[10px] text-slate-400 shrink-0 flex items-center gap-1 mt-0.5 font-mono">
-                    <Clock className="w-3 h-3" />
+                    <Clock className="w-3 h-3 text-slate-500" />
                     <span>{formattedTime}</span>
                   </span>
                 </button>
@@ -135,29 +138,29 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onSelectQuery }) => {
       )}
 
       {/* Methodology & Safety Guarantees */}
-      <div className="p-5 bg-slate-50/70 rounded-xl border border-slate-200 text-left">
-        <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2">
+      <div className="p-6 rounded-[22px] bg-[#05110a] border border-emerald-500/20 text-left">
+        <h4 className="text-xs font-bold text-[#ccff00] uppercase tracking-wider mb-3 font-mono">
           Methodology & Pricing Integrity
         </h4>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-600">
-          <div className="flex items-start gap-2">
-            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-300">
+          <div className="flex items-start gap-2.5">
+            <CheckCircle className="w-4 h-4 text-[#ccff00] shrink-0 mt-0.5" />
             <div>
-              <strong className="text-slate-800 font-medium block">Source-Backed Quotes</strong>
+              <strong className="text-white font-semibold block">Source-Backed Quotes</strong>
               <span>Prices are referenced from actual retail and distributor listings.</span>
             </div>
           </div>
-          <div className="flex items-start gap-2">
-            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2.5">
+            <CheckCircle className="w-4 h-4 text-[#ccff00] shrink-0 mt-0.5" />
             <div>
-              <strong className="text-slate-800 font-medium block">Variance Spreads</strong>
+              <strong className="text-white font-semibold block">Variance Spreads</strong>
               <span>Always displays a low-to-high price range rather than an arbitrary single point.</span>
             </div>
           </div>
-          <div className="flex items-start gap-2">
-            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2.5">
+            <CheckCircle className="w-4 h-4 text-[#ccff00] shrink-0 mt-0.5" />
             <div>
-              <strong className="text-slate-800 font-medium block">Persistent Audit Trail</strong>
+              <strong className="text-white font-semibold block">Persistent Audit Trail</strong>
               <span>Every query, interpretation, source quote, and benchmark is stored with relational links.</span>
             </div>
           </div>

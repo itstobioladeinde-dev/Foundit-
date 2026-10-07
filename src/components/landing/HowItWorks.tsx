@@ -48,57 +48,57 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 max-w-6xl mx-auto px-4">
+    <section id="how-it-works" className="py-20 max-w-6xl mx-auto px-4 text-left">
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto mb-16">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/70 mb-4">
+        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-emerald-950/80 text-[#ccff00] border border-[#ccff00]/30 mb-4 font-mono">
           <ShieldCheck className="w-3.5 h-3.5" />
           <span>THREE-STAGE PROCUREMENT ARCHITECTURE</span>
         </span>
-        <h2 className="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-tight">
-          How MarketProbe Turns Plain Text into Verified Market Intelligence
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight font-display">
+          How MarketProbe Turns Plain Text into Verified Pricing
         </h2>
-        <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+        <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed">
           From query submission to empirical price synthesis in under 4 seconds. No speculative AI hallucinations.
         </p>
       </div>
 
       {/* 3 Step Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {steps.map((step, idx) => {
+        {steps.map((step) => {
           const Icon = step.icon;
           return (
             <div
               key={step.number}
-              className="p-7 bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 text-left flex flex-col justify-between relative group"
+              className="p-8 rounded-[24px] bg-gradient-to-b from-[#0a1e14] to-[#07160e] border border-emerald-500/25 hover:border-[#ccff00]/60 shadow-[0_10px_35px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_35px_rgba(204,255,0,0.1)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative group"
             >
               <div>
-                <div className="flex items-center justify-between mb-5">
-                  <span className="text-3xl font-mono font-bold text-slate-200 group-hover:text-indigo-600 transition-colors">
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-4xl font-mono font-bold text-white/20 group-hover:text-[#ccff00] transition-colors">
                     {step.number}
                   </span>
-                  <div className="w-10 h-10 rounded-2xl bg-slate-50 text-slate-700 group-hover:bg-indigo-50 group-hover:text-indigo-700 flex items-center justify-center border border-slate-100 group-hover:border-indigo-200 transition-colors">
-                    <Icon className="w-5 h-5" />
+                  <div className="w-11 h-11 rounded-2xl bg-emerald-950/90 text-[#ccff00] flex items-center justify-center border border-[#ccff00]/30 shadow-inner group-hover:scale-105 transition-transform">
+                    <Icon className="w-5 h-5 stroke-[2.2]" />
                   </div>
                 </div>
 
-                <div className="inline-block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                <div className="inline-block text-[10px] font-bold text-[#ccff00] uppercase tracking-wider mb-1 font-mono">
                   {step.subtitle}
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 leading-snug">
+                <h3 className="text-lg font-bold text-white leading-snug">
                   {step.title}
                 </h3>
 
-                <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {step.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-5 border-t border-slate-100">
-                <ul className="space-y-2 text-xs text-slate-600">
+              <div className="mt-6 pt-5 border-t border-white/10">
+                <ul className="space-y-2 text-xs text-slate-300">
                   {step.features.map((feat, fi) => (
                     <li key={fi} className="flex items-start gap-2">
-                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                      <Check className="w-3.5 h-3.5 text-[#ccff00] shrink-0 mt-0.5" />
                       <span>{feat}</span>
                     </li>
                   ))}

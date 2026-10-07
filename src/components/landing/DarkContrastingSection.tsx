@@ -40,21 +40,21 @@ export const DarkContrastingSection: React.FC<{ onSearchExample: (q: string) => 
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#06120b] via-[#091b11] to-[#050e09] text-white relative overflow-hidden border-y border-emerald-950/80">
+    <section className="py-24 bg-[#05110a] text-white relative overflow-hidden border-y border-emerald-950/80">
       {/* Background ambient lighting effects */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-lime-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[radial-gradient(circle,rgba(204,255,0,0.12)_0%,transparent_70%)] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[radial-gradient(circle,rgba(16,185,129,0.12)_0%,transparent_70%)] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 text-left">
           <div className="max-w-xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/90 text-emerald-300 border border-emerald-500/30 mb-4">
-              <Radar className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-emerald-950/90 text-[#ccff00] border border-[#ccff00]/30 mb-4 font-mono">
+              <Radar className="w-3.5 h-3.5" />
               <span>LIVE INDUSTRIAL COMMODITY RADAR</span>
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white tracking-tight leading-tight">
-              Enterprise Procurement Intelligence in High Contrast.
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight font-display">
+              Procurement Intelligence in High Contrast.
             </h2>
             <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed">
               When market prices shift due to supply shocks, tariff modifications, or local retailer markups, MarketProbe crawls live supplier indexes to report verified figures.
@@ -63,8 +63,8 @@ export const DarkContrastingSection: React.FC<{ onSearchExample: (q: string) => 
 
           <div className="flex items-center gap-4 text-xs text-slate-400 font-mono">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>CRAWLER STATUS: ONLINE</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ccff00] animate-pulse" />
+              <span className="text-[#ccff00]">CRAWLER: ONLINE</span>
             </div>
             <span>·</span>
             <span>UNTRUSTED ISOLATION: ACTIVE</span>
@@ -77,18 +77,18 @@ export const DarkContrastingSection: React.FC<{ onSearchExample: (q: string) => 
             <div
               key={idx}
               onClick={() => onSearchExample(ticker.item.split('(')[0].trim())}
-              className="p-5 rounded-2xl bg-white/5 hover:bg-white/10 border border-emerald-500/20 hover:border-emerald-400/50 transition-all duration-300 flex flex-col justify-between group cursor-pointer backdrop-blur-md hover:-translate-y-1 shadow-lg"
+              className="p-6 rounded-[22px] bg-gradient-to-b from-[#0a1e14] to-[#07160e] border border-emerald-500/20 hover:border-[#ccff00]/60 transition-all duration-300 flex flex-col justify-between group cursor-pointer backdrop-blur-md hover:-translate-y-1 shadow-lg"
             >
               <div>
-                <div className="flex items-center justify-between text-[11px] text-emerald-400/90 mb-2">
+                <div className="flex items-center justify-between text-[11px] text-emerald-400/90 mb-2 font-mono">
                   <span>{ticker.category}</span>
-                  <span className="flex items-center gap-1 text-slate-400 group-hover:text-emerald-300 transition-colors">
+                  <span className="flex items-center gap-1 text-slate-400 group-hover:text-[#ccff00] transition-colors">
                     <span>Analyze</span>
                     <ArrowUpRight className="w-3 h-3" />
                   </span>
                 </div>
 
-                <h3 className="text-sm font-semibold text-white group-hover:text-emerald-200 transition-colors line-clamp-2">
+                <h3 className="text-sm font-bold text-white group-hover:text-[#ccff00] transition-colors line-clamp-2">
                   {ticker.item}
                 </h3>
 
@@ -102,18 +102,18 @@ export const DarkContrastingSection: React.FC<{ onSearchExample: (q: string) => 
 
               <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
                 <span className="font-mono">{ticker.spread}</span>
-                <span className="text-emerald-400 font-medium">✓ {ticker.confidence}</span>
+                <span className="text-[#ccff00] font-semibold">✓ {ticker.confidence}</span>
               </div>
             </div>
           ))}
         </div>
 
         {/* Guarantee Banner */}
-        <div className="mt-12 p-6 rounded-2xl bg-emerald-950/40 border border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-left text-xs sm:text-sm">
+        <div className="mt-12 p-6 rounded-[22px] bg-gradient-to-r from-[#0c281a] to-[#071910] border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-left text-xs sm:text-sm">
           <div className="flex items-center gap-3">
-            <Award className="w-5 h-5 text-emerald-400 shrink-0" />
+            <Award className="w-5 h-5 text-[#ccff00] shrink-0" />
             <span className="text-slate-200">
-              <strong>Verified Procurement Guarantee: </strong>
+              <strong className="text-white">Verified Procurement Guarantee: </strong>
               MarketProbe never projects speculative futures or fabricated averages. If 0 sources are verified, it declares price unavailable.
             </span>
           </div>
@@ -121,8 +121,9 @@ export const DarkContrastingSection: React.FC<{ onSearchExample: (q: string) => 
           <button
             onClick={() => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
+              document.getElementById('search-input')?.focus();
             }}
-            className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shrink-0"
+            className="px-5 py-2.5 rounded-full bg-[#ccff00] hover:bg-[#bbf246] active:scale-95 text-[#06130c] font-black text-xs uppercase tracking-wider transition-all duration-200 shrink-0 shadow-[0_0_15px_rgba(204,255,0,0.3)] cursor-pointer"
           >
             Launch Search Above →
           </button>

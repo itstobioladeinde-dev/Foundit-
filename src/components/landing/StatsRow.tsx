@@ -24,28 +24,28 @@ const StatCard: React.FC<StatCardProps> = ({
   return (
     <div
       ref={elementRef}
-      className="p-6 bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between"
+      className="p-6 rounded-[22px] bg-gradient-to-b from-[#0a1e13] to-[#07160e] border border-emerald-500/20 hover:border-[#ccff00]/50 shadow-[0_10px_30px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-all duration-300 text-left flex flex-col justify-between group"
     >
       <div>
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-emerald-300 transition-colors font-mono">
             {label}
           </span>
-          <div className="w-8 h-8 rounded-xl bg-slate-50 text-slate-700 flex items-center justify-center border border-slate-100">
+          <div className="w-8 h-8 rounded-xl bg-emerald-950/80 text-[#ccff00] flex items-center justify-center border border-[#ccff00]/25">
             <Icon className="w-4 h-4" />
           </div>
         </div>
 
         <div className="flex items-baseline gap-1 mt-2">
-          <span className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 font-mono tabular-nums">
+          <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white font-mono tabular-nums">
             {prefix}
             {count.toLocaleString()}
-            {suffix}
+            <span className="text-[#ccff00]">{suffix}</span>
           </span>
         </div>
       </div>
 
-      <p className="mt-3 text-xs text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
+      <p className="mt-3 text-xs text-slate-400 leading-relaxed border-t border-white/10 pt-3">
         {description}
       </p>
     </div>
@@ -54,17 +54,17 @@ const StatCard: React.FC<StatCardProps> = ({
 
 export const StatsRow: React.FC = () => {
   return (
-    <section className="py-16 max-w-6xl mx-auto px-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <section className="py-12 max-w-6xl mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          label="Indexed Specifications"
+          label="Catalog Records"
           targetNumber={50}
           suffix="M+"
-          description="Physical dimensions, ASTM standards, thicknesses, and grades recorded."
+          description="Physical dimensions, ASTM standards, thicknesses, and grades indexed."
           icon={Database}
         />
         <StatCard
-          label="Attribution Accuracy"
+          label="Source Attribution"
           targetNumber={98}
           suffix=".4%"
           description="Every price observation links directly to live vendor catalog URLs."
@@ -79,7 +79,7 @@ export const StatsRow: React.FC = () => {
           icon={Zap}
         />
         <StatCard
-          label="Supplier Coverage"
+          label="Verified Suppliers"
           targetNumber={120}
           suffix="+"
           description="Industrial supply depots, regional lumber yards, and online merchants."
