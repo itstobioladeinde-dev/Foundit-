@@ -91,6 +91,24 @@ export default function App() {
     }
   };
 
+  const handleNavigateSection = (sectionId: string) => {
+    // If currently viewing results, reset back to landing page first so sections exist
+    if (status !== 'idle') {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      inFlightQueryRef.current = null;
+      setStatus('idle');
+      setResult(null);
+    }
+    setTimeout(() => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 60);
+  };
+
   return (
     <div className="min-h-screen bg-[#06130c] flex flex-col font-sans text-white antialiased selection:bg-[#ccff00] selection:text-[#06130c]">
       {/* Navigation Header with Floating Pill */}
@@ -98,17 +116,25 @@ export default function App() {
         onReset={handleReset}
         onNewSearchClick={() => {
           handleReset();
-          document.getElementById('search-input')?.focus();
+          setTimeout(() => {
+            document.getElementById('search-input')?.focus();
+          }, 100);
         }}
+        onNavigateSection={handleNavigateSection}
+        isResultsView={status !== 'idle'}
       />
 
       {/* Main Content Flow */}
       <main className="flex-1">
-        {/* 1. Hero with editorial typography, centered search bar & 3D data pedestal */}
+        {/* 1. Hero / Search Bar:
+               - Full editorial hero with 3D pedestal on idle homepage
+               - Compact streamlined search bar when in loading, error, or results view */}
         <HeroSection
           onSearch={executeSearch}
           isLoading={status === 'loading'}
           initialQuery={currentQuery}
+          isCompact={status !== 'idle'}
+          onReset={handleReset}
         />
 
         {/* 2. Loading State */}
@@ -139,16 +165,16 @@ export default function App() {
           </div>
         )}
 
-        {/* 5. Landing Page Sections (When in Idle State or below results) */}
+        {/* 5. Landing Page Sections (When in Idle State) */}
         {status === 'idle' && (
           <>
             {/* Trusted-by / Sources Strip */}
             <TrustedSourcesStrip />
 
-            {/* Category Showcase: Direct translation of "Shop By Category" 5 vertical cards */}
+            {/* Category Showcase: 5 vertical cards */}
             <CategoryShowcase onSelectCategory={executeSearch} />
 
-            {/* Promotional Banner: Direct translation of "New Arrival: Small Size. Big Performance." card */}
+            {/* Promotional Banner: High-impact commodity radar */}
             <PromotionalBanner onSearchCTA={executeSearch} />
 
             {/* Stats Row with Soft Cards & Count-Up */}

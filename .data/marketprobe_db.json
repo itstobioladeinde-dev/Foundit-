@@ -16,6 +16,14 @@
       "status": "completed",
       "created_at": "2026-10-06T23:29:36.330Z",
       "updated_at": "2026-10-06T23:29:36.594Z"
+    },
+    {
+      "id": "59343bfd-00fd-4427-aaed-4fff298439e2",
+      "original_query": "12mm marine plywood",
+      "normalized_query": "12mm marine plywood",
+      "status": "completed",
+      "created_at": "2026-10-07T00:06:22.653Z",
+      "updated_at": "2026-10-07T00:06:24.945Z"
     }
   ],
   "interpretations": [
@@ -70,6 +78,32 @@
       "confidence": 0.85,
       "uncertainties": [],
       "created_at": "2026-10-06T23:29:36.333Z"
+    },
+    {
+      "id": "d2a2cc88-7888-4ac5-bd20-57622909205a",
+      "search_id": "59343bfd-00fd-4427-aaed-4fff298439e2",
+      "name": "12mm Marine Plywood",
+      "category": "Building Materials & Construction",
+      "description": "Standard market catalog specification for 12mm Marine Plywood, classified under Building Materials & Construction.",
+      "brand": null,
+      "model": null,
+      "material": "plywood",
+      "specifications": [
+        "12mm",
+        "Marine Grade (water-resistant adhesive)"
+      ],
+      "possible_variants": [
+        "12mm Marine Plywood Standard Commercial Grade",
+        "12mm Marine Plywood Heavy-Duty / Premium Grade"
+      ],
+      "search_queries": [
+        "12mm Marine Plywood price quote",
+        "12mm Marine Plywood distributor supplier catalog",
+        "12mm Marine Plywood specification sheet cost"
+      ],
+      "confidence": 0.85,
+      "uncertainties": [],
+      "created_at": "2026-10-07T00:06:24.479Z"
     }
   ],
   "sources": [
@@ -212,6 +246,42 @@
         "Glue Classification: Exterior Grade / WBP / Phenolic"
       ],
       "retrieved_at": "2026-10-06T23:29:36.334Z"
+    },
+    {
+      "id": "4d27e86d-f0e6-4ed6-a810-fd5d44594a2e",
+      "search_id": "59343bfd-00fd-4427-aaed-4fff298439e2",
+      "source": "Industrial Supply Network",
+      "title": "12mm Marine Plywood - Commercial Specification & Listing",
+      "url": "https://www.industrialsupply.com/catalog/12mm-marine-plywood",
+      "seller": "Industrial Supply Direct",
+      "brand": "Commercial Grade",
+      "product": "12mm Marine Plywood",
+      "price": 45,
+      "currency": "USD",
+      "availability": "In Stock",
+      "specifications": [
+        "12mm",
+        "Marine Grade (water-resistant adhesive)"
+      ],
+      "retrieved_at": "2026-10-07T00:06:24.665Z"
+    },
+    {
+      "id": "9516c706-0d4d-4e8f-bec3-3ca970eedcdc",
+      "search_id": "59343bfd-00fd-4427-aaed-4fff298439e2",
+      "source": "Global Distributor Depot",
+      "title": "12mm Marine Plywood - Wholesale Trade Pricing",
+      "url": "https://www.distributordepot.com/products/12mm-marine-plywood",
+      "seller": "Global Wholesale Partners",
+      "brand": null,
+      "product": "12mm Marine Plywood",
+      "price": 38.5,
+      "currency": "USD",
+      "availability": "Made to Order",
+      "specifications": [
+        "12mm",
+        "Marine Grade (water-resistant adhesive)"
+      ],
+      "retrieved_at": "2026-10-07T00:06:24.665Z"
     }
   ],
   "observations": [
@@ -326,6 +396,38 @@
       "match_score": 1,
       "is_outlier": false,
       "created_at": "2026-10-06T23:29:36.338Z"
+    },
+    {
+      "id": "c56ac056-c67c-4d96-ac30-ce95a67b8f89",
+      "search_id": "59343bfd-00fd-4427-aaed-4fff298439e2",
+      "source": "Industrial Supply Network",
+      "source_url": "https://www.industrialsupply.com/catalog/12mm-marine-plywood",
+      "seller": "Industrial Supply Direct",
+      "product_title": "12mm Marine Plywood - Commercial Specification & Listing",
+      "original_price": 45,
+      "original_currency": "USD",
+      "normalized_price": 45,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-07T00:06:24.669Z"
+    },
+    {
+      "id": "cc1d9c59-0901-424b-a182-7c8d08e31cff",
+      "search_id": "59343bfd-00fd-4427-aaed-4fff298439e2",
+      "source": "Global Distributor Depot",
+      "source_url": "https://www.distributordepot.com/products/12mm-marine-plywood",
+      "seller": "Global Wholesale Partners",
+      "product_title": "12mm Marine Plywood - Wholesale Trade Pricing",
+      "original_price": 38.5,
+      "original_currency": "USD",
+      "normalized_price": 38.5,
+      "normalized_currency": "USD",
+      "is_exact_match": true,
+      "match_score": 1,
+      "is_outlier": false,
+      "created_at": "2026-10-07T00:06:24.669Z"
     }
   ],
   "finalResults": [
@@ -375,6 +477,28 @@
       ],
       "disclaimer": "Prices reflect recent public supplier observations and are subject to real-time market shifts, local taxes, freight, and vendor stock fluctuations.",
       "created_at": "2026-10-06T23:29:36.594Z"
+    },
+    {
+      "id": "9067ff48-0cd2-4d11-a3be-777911d6d721",
+      "search_id": "59343bfd-00fd-4427-aaed-4fff298439e2",
+      "product_name": "12mm Marine Plywood",
+      "category": "Building Materials & Construction",
+      "description": "Standard market catalog specification for 12mm Marine Plywood, classified under Building Materials & Construction.",
+      "brand": null,
+      "model": null,
+      "benchmark_price": 41.75,
+      "range_min": 38.5,
+      "range_max": 45,
+      "currency": "USD",
+      "confidence": "medium",
+      "quote_count": 2,
+      "unit_of_measure": "per standard commercial unit",
+      "methodology": "Calculated median across 2 independent merchant observations with moderate price variance.",
+      "limitations": [
+        "Simulated prototype data. In Prompt 3, live Google Search Grounding will replace this with verified merchant listings."
+      ],
+      "disclaimer": "Prices reflect recent public supplier observations and are subject to real-time market shifts, local taxes, freight, and vendor stock fluctuations.",
+      "created_at": "2026-10-07T00:06:24.945Z"
     }
   ]
 }

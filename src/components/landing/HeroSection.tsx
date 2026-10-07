@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Search,
   Loader2,
@@ -13,12 +13,16 @@ import {
   Database,
   BarChart3,
   Radio,
+  X,
+  RotateCcw,
 } from 'lucide-react';
 
 interface HeroSectionProps {
   onSearch: (query: string) => void;
   isLoading: boolean;
   initialQuery?: string;
+  isCompact?: boolean;
+  onReset?: () => void;
   onExploreMethodology?: () => void;
 }
 
@@ -35,10 +39,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onSearch,
   isLoading,
   initialQuery = '',
+  isCompact = false,
+  onReset,
 }) => {
   const [query, setQuery] = useState(initialQuery);
   const [validationError, setValidationError] = useState('');
-  const [activeTab, setActiveTab] = useState<'all' | 'materials' | 'hardware' | 'electronics'>('all');
+
+  // Bug Fix 1: Synchronize query state whenever initialQuery changes from external action
+  useEffect(() => {
+    setQuery(initialQuery);
+    if (validationError) setValidationError('');
+  }, [initialQuery]);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +72,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     onSearch(item);
   };
 
+  const handleClear = () => {
+    setQuery('');
+    setValidationError('');
+    const input = document.getElementById('search-input');
+    input?.focus();
+  };
+
   const scrollToMethodology = () => {
     const el = document.getElementById('how-it-works');
     if (el) {
@@ -68,6 +86,115 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     }
   };
 
+  const scrollToSearch = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const inputEl = document.getElementById('search-input');
+    if (inputEl) {
+      inputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      inputEl.focus();
+    }
+  };
+
+  // Compact Mode: Rendered at top of Results/Loading view so results aren't pushed down
+  if (isCompact) {
+    return (
+      <section className="pt-4 pb-6 px-4 bg-[#06130c] border-b border-emerald-950/80">
+        <div className="max-w-4xl mx-auto">
+          <form
+            onSubmit={handleFormSubmit}
+            className="relative flex items-center bg-[#0a1d13]/90 hover:bg-[#0c2317] p-2 rounded-full border border-emerald-500/40 shadow-lg focus-within:border-[#ccff00] focus-within:shadow-[0_0_25px_rgba(204,255,0,0.25)] transition-all duration-300 backdrop-blur-xl"
+          >
+            <div className="pl-3.5 pr-2.5 text-emerald-400">
+              <Search className="w-4 h-4 text-[#ccff00]" />
+            </div>
+
+            <input
+              id="search-input"
+              type="text"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                if (validationError) setValidationError('');
+              }}
+              disabled={isLoading}
+              placeholder='Search any product or material...'
+              className="w-full text-sm text-white placeholder:text-slate-400 bg-transparent outline-none py-1.5 px-1 focus:ring-0"
+              maxLength={200}
+              aria-label="Product or material search query"
+            />
+
+            {query && !isLoading && (
+              <button
+                type="button"
+                onClick={handleClear}
+                className="p-1 mr-2 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                aria-label="Clear input"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading || !query.trim()}
+              className="px-5 py-2.5 rounded-full bg-[#ccff00] hover:bg-[#bbf246] disabled:bg-slate-700 disabled:text-slate-400 text-[#06130c] font-black text-xs tracking-wider uppercase shadow-[0_0_15px_rgba(204,255,0,0.25)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shrink-0 flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-[#06130c]" />
+                  <span>RESEARCHING...</span>
+                </>
+              ) : (
+                <>
+                  <span>SEARCH</span>
+                  <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {validationError && (
+            <p className="mt-2 text-xs font-semibold text-rose-400 text-left pl-4" role="alert">
+              {validationError}
+            </p>
+          )}
+
+          {/* Prompt Suggestions Pills */}
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-slate-400 text-[10px] uppercase tracking-wider font-semibold">
+                Quick:
+              </span>
+              {POPULAR_EXAMPLES.slice(0, 4).map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => handleChipClick(item)}
+                  disabled={isLoading}
+                  className="px-2.5 py-0.5 rounded-full bg-white/[0.06] hover:bg-[#ccff00]/15 hover:border-[#ccff00]/40 text-slate-300 hover:text-[#ccff00] transition-all border border-white/10 text-[11px] cursor-pointer"
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            {onReset && (
+              <button
+                type="button"
+                onClick={onReset}
+                className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400 hover:text-[#ccff00] transition-colors cursor-pointer"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>Return to Home Radar</span>
+              </button>
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Full Editorial Hero: Displayed on the Home/Idle view
   return (
     <section className="relative pt-6 pb-16 overflow-hidden bg-[#06130c] text-white">
       {/* Ambient background lighting & soft botanical/caustic gradients matching reference image */}
@@ -110,10 +237,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
                 href="#search-bar"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('search-input')?.focus();
-                }}
+                onClick={scrollToSearch}
                 className="px-7 py-3.5 rounded-full bg-[#ccff00] hover:bg-[#bbf246] active:scale-95 text-[#06130c] font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(204,255,0,0.35)] transition-all duration-200 flex items-center gap-2 cursor-pointer group"
               >
                 <span>SEARCH PRICES</span>
@@ -180,7 +304,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
 
           {/* Right Hero Column: Sophisticated Price & Data Visualization on 3D Pedestal */}
-          {/* (Translates headphones on pedestal + thin glowing concentric rings from reference image) */}
           <div className="lg:col-span-5 relative flex items-center justify-center min-h-[360px] sm:min-h-[420px]">
             
             {/* Concentric Thin Glowing Lime Rings (Signature visual from reference image) */}
@@ -191,7 +314,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Glowing background radial spot */}
             <div className="absolute w-72 h-72 rounded-full bg-[#ccff00]/15 blur-2xl pointer-events-none" />
 
-            {/* The 3D Matte Dark Pedestal (Direct translation of the round pedestal in the image) */}
+            {/* The 3D Matte Dark Pedestal */}
             <div className="relative w-full max-w-[340px] pt-12 pb-6 flex flex-col items-center">
               
               {/* Floating Centerpiece: Holographic Price Intelligence Sphere */}
@@ -218,10 +341,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
               </div>
 
-              {/* The Physical Cylindrical Pedestal underneath */}
+              {/* Cylindrical Pedestal underneath */}
               <div className="relative -mt-10 z-10 w-64 h-16 rounded-[100%] bg-gradient-to-b from-[#133222] to-[#091b12] border-t-2 border-[#ccff00]/50 shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
                 <div className="absolute inset-x-0 bottom-0 h-10 rounded-b-2xl bg-[#06140d] border-b border-emerald-900/60" />
-                {/* Surface reflection highlight */}
                 <div className="absolute top-1 inset-x-8 h-2 rounded-full bg-white/10 blur-[1px]" />
               </div>
 
@@ -284,6 +406,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               maxLength={200}
               aria-label="Product or material search query"
             />
+
+            {query && !isLoading && (
+              <button
+                type="button"
+                onClick={handleClear}
+                className="p-1.5 mr-2 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                aria-label="Clear input"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
 
             <button
               type="submit"
